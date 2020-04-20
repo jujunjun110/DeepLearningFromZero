@@ -31,6 +31,34 @@ class TestMain(unittest.TestCase):
                 actual = main.OR(x1, x2)
                 self.assertEqual(actual, expected)
 
+    def test_NAND(self):
+        cases = [
+            [0, 0, 1],
+            [1, 0, 1],
+            [0, 1, 1],
+            [1, 1, 0],
+        ]
+
+        for case in cases:
+            with self.subTest(case=case):
+                x1, x2, expected = case
+                actual = main.NAND(x1, x2)
+                self.assertEqual(actual, expected)
+
+    def test_XOR(self):
+        cases = [
+            [0, 0, 0],
+            [1, 0, 1],
+            [0, 1, 1],
+            [1, 1, 0],
+        ]
+
+        for case in cases:
+            with self.subTest(case=case):
+                x1, x2, expected = case
+                actual = main.XOR(x1, x2)
+                self.assertEqual(actual, expected)
+
 
 if __name__ == "__main__":
     unittest.main()
