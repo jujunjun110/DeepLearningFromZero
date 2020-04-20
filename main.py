@@ -3,12 +3,13 @@ import matplotlib.pyplot as plt
 import sys
 import os
 import IPython
+from PIL import Image
 
 
 def main():
     sys.path.append(os.pardir)
     from dataset.mnist import load_mnist
-
+    # (訓練画像, 訓練ラベル), (テスト画像, テストラベル)
     (x_train, t_train), (x_test, t_test) = load_mnist(
         flatten=True, normalize=True)
     IPython.embed()

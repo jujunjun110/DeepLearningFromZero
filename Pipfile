@@ -12,6 +12,7 @@ ipython = "*"
 [packages]
 numpy = "*"
 matplotlib = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.6"
