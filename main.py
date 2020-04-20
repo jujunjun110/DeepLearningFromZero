@@ -1,12 +1,18 @@
 import numpy as np
 import matplotlib.pyplot as plt
+import mnist
 
 
 def main():
-    network = init_network()
-    x = np.array([1.0, 0.5])
-    y = forward(network, x)
-    print(y)
+    from mnist import load_mnist
+
+    (x_train, t_train), (x_test, t_test) = load_mnist(
+        flatten=True, normalize=True)
+
+    # network = init_network()
+    # x = np.array([1.0, 0.5])
+    # y = forward(network, x)
+    # print(y)
 
 
 def init_network():
