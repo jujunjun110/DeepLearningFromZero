@@ -2,6 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import sys
 import os
+import IPython
 
 
 def main():
@@ -10,6 +11,7 @@ def main():
 
     (x_train, t_train), (x_test, t_test) = load_mnist(
         flatten=True, normalize=True)
+    IPython.embed()
 
     # network = init_network()
     # x = np.array([1.0, 0.5])
