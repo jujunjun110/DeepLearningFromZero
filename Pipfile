@@ -7,10 +7,12 @@ verify_ssl = true
 autopep8 = "*"
 pylint = "*"
 rope = "*"
+ipython = "*"
 
 [packages]
 numpy = "*"
 matplotlib = "*"
+pillow = "*"
 
 [requires]
 python_version = "3.6"
