@@ -41,11 +41,10 @@ def exec_parallel2():
     # 10000画像並列
     x, t = get_data()
     network = init_network()
-    accuracy_count = 0
 
     y = predict(network, x)
     p = np.argmax(y, axis=1)
-    accuracy_count += np.sum(p == t)
+    accuracy_count = np.sum(p == t)
 
     print(f"Accuracy: {accuracy_count / len(x)}")
 
