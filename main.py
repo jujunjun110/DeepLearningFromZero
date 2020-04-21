@@ -10,9 +10,12 @@ from PIL import Image
 
 def main():
     exec_parallel()
+    exec_parallel2()
+    exec_sequentially()
 
 
 def exec_parallel():
+    # 100画像ずつ並列
     x, t = get_data()
     network = init_network()
     batch_size = 100
@@ -23,6 +26,19 @@ def exec_parallel():
         y_batch = predict(network, x_batch)
         p = np.argmax(y_batch, axis=1)
         accuracy_count += np.sum(p == t[i:i+batch_size])
+
+    print(f"Accuracy: {accuracy_count / len(x)}")
+
+
+def exec_parallel2():
+    # 10000画像並列
+    x, t = get_data()
+    network = init_network()
+    accuracy_count = 0
+
+    y = predict(network, x)
+    p = np.argmax(y, axis=1)
+    accuracy_count += np.sum(p == t)
 
     print(f"Accuracy: {accuracy_count / len(x)}")
 
