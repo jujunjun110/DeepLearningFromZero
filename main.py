@@ -1,6 +1,7 @@
 import sys
 import os
 import pickle
+import datetime
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -9,9 +10,15 @@ from PIL import Image
 
 
 def main():
-    exec_parallel()
-    exec_parallel2()
-    exec_sequentially()
+    for f in ["exec_parallel", "exec_parallel2", "exec_sequentially"]:
+        calc_time(f)
+
+
+def calc_time(func_name):
+    start = datetime.datetime.now()
+    globals()[func_name]()
+    end = datetime.datetime.now()
+    print(f"Time: {end-start}")
 
 
 def exec_parallel():
