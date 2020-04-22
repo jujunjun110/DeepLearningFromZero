@@ -12,6 +12,15 @@ class TestMain(unittest.TestCase):
         self.assertTrue(np.allclose(actual, expected))
         self.assertEqual(actual.sum(), 1.0)
 
+    def test_numerical_grad(self):
+        def function_2(x):
+            return (x[0] ** 2 + x[1] ** 2)
+
+        case = np.array([3., 4.])
+        expected = np.array([6., 8.])
+        actual = main.numerical_grad(function_2, case)
+        self.assertTrue(np.allclose(actual, expected))
+
 
 if __name__ == "__main__":
     unittest.main()

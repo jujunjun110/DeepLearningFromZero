@@ -10,10 +10,14 @@ from PIL import Image
 
 
 def main():
-    t = np.array([0, 0, 1, 0, 0, 0, 0, 0, 0, 0])
-    y = np.array([0.1, 0.05, 0.6, 0, 0.05, 0.1, 0, 0.1, 0, 0])
-    res = cross_entropy_error(y, t)
-    print(res)
+    sys.path.append(os.pardir)
+    from dataset.mnist import load_mnist
+    # (訓練画像, 訓練ラベル), (テスト画像, テストラベル)
+    (x_train, t_train), (x_test, t_test) = load_mnist(
+        normalize=True, one_hot_label=True)
+    # embed()
+
+    return x_test, t_test
 
 
 def calc_time_endpoint():
@@ -169,8 +173,35 @@ def mean_squared_error(y, t):
 
 
 def cross_entropy_error(y, t):
-    delta = 1e-7
-    return - np.sum(t * np.log(y + delta))
+    if y.ndim == 1:
+        t = t.reshape(1, t.size)
+        y = y.reshape(1, y.size)
+    batch_size = y.shape[0]
+
+    return - np.sum(t * np.log(y + 1e-7)) / batch_size
+
+
+def numerical_diff(f, x):
+    h = 1e-4
+    return(f(x + h) - f(x - h)) / (2 * h)
+
+
+def numerical_grad(f, x):
+    h = 1e-4
+    grad = np.zeros_like(x)
+
+    for idx in range(x.size):
+        tmp_val = x[idx]
+        x[idx] = tmp_val + h
+        fxh1 = f(x)
+
+        x[idx] = tmp_val - h
+        fxh2 = f(x)
+
+        grad[idx] = (fxh1 - fxh2) / (h * 2)
+        x[idx] = tmp_val
+
+    return grad
 
 
 if __name__ == "__main__":
