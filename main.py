@@ -8,6 +8,8 @@ import matplotlib.pyplot as plt
 from IPython import embed
 from PIL import Image
 
+from util import softmax, cross_entropy_error, numerical_grad
+
 
 def main():
     calc_time_endpoint()
@@ -153,48 +155,14 @@ def relu(x):
     return np.maximum(x, 0)
 
 
-def softmax(a):
-    c = np.max(a)
-    exp_a = np.exp(a - c)
-    sum_exp_a = np.sum(exp_a)
-    return exp_a / sum_exp_a
-
-
 def mean_squared_error(y, t):
     # 二乗和誤差
     return 0.5 * np.sum((y - t) ** 2)
 
 
-def cross_entropy_error(y, t):
-    if y.ndim == 1:
-        t = t.reshape(1, t.size)
-        y = y.reshape(1, y.size)
-    batch_size = y.shape[0]
-
-    return - np.sum(t * np.log(y + 1e-7)) / batch_size
-
-
 def numerical_diff(f, x):
     h = 1e-4
     return(f(x + h) - f(x - h)) / (2 * h)
-
-
-def numerical_grad(f, x):
-    h = 1e-4
-    grad = np.zeros_like(x)
-
-    for idx in range(x.size):
-        tmp_val = x[idx]
-        x[idx] = tmp_val + h
-        fxh1 = f(x)
-
-        x[idx] = tmp_val - h
-        fxh2 = f(x)
-
-        grad[idx] = (fxh1 - fxh2) / (h * 2)
-        x[idx] = tmp_val
-
-    return grad
 
 
 def gradient_descent(f, init_x, lr=0.01, step_num=10000):
