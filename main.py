@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from IPython import embed
 from PIL import Image
 
-from util import softmax, cross_entropy_error, numerical_grad
+from util import softmax, cross_entropy_error, numerical_grad, sigmoid
 
 
 def main():
@@ -38,7 +38,7 @@ def exec_parallel():
         x_batch = x[i: i + batch_size]
         y_batch = predict(network, x_batch)
         p = np.argmax(y_batch, axis=1)
-        accuracy_count += np.sum(p == t[i:i+batch_size])
+        accuracy_count += np.sum(p == t[i:i + batch_size])
 
     print(f"Accuracy: {accuracy_count / len(x)}")
 
@@ -145,10 +145,6 @@ def identity_function(x):
 
 def step_function(x):
     return np.array(x > 0, dtype=np.int)
-
-
-def sigmoid(x):
-    return 1 / (1 + np.exp(-x))
 
 
 def relu(x):
