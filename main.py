@@ -204,5 +204,16 @@ def numerical_grad(f, x):
     return grad
 
 
+def gradient_descent(f, init_x, lr=0.01, step_num=100):
+    # lr = Learning Rate
+    x = init_x
+
+    for _ in range(step_num):
+        grad = numerical_grad(f, x)
+        x -= lr * grad
+
+    return x
+
+
 if __name__ == "__main__":
     main()

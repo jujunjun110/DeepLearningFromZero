@@ -21,6 +21,17 @@ class TestMain(unittest.TestCase):
         actual = main.numerical_grad(function_2, case)
         self.assertTrue(np.allclose(actual, expected))
 
+    def test_gradient_descent(self):
+        def function_2(x):
+            return (x[0] ** 2 + x[1] ** 2)
+
+        case = np.array([-3., 4.])
+        expected = np.array([0., 0.])
+
+        actual = main.gradient_descent(function_2, case, 0.1)
+        print(actual)
+        self.assertTrue(np.allclose(actual, expected))
+
 
 if __name__ == "__main__":
     unittest.main()
