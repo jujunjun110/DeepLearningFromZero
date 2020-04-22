@@ -10,6 +10,13 @@ from PIL import Image
 
 
 def main():
+    t = np.array([0, 0, 1, 0, 0, 0, 0, 0, 0, 0])
+    y = np.array([0.1, 0.05, 0.6, 0, 0.05, 0.1, 0, 0.1, 0, 0])
+    res = cross_entropy_error(y, t)
+    print(res)
+
+
+def calc_time_endpoint():
     for f in ["exec_parallel", "exec_parallel2", "exec_sequentially"]:
         calc_time(f)
 
@@ -154,6 +161,16 @@ def softmax(a):
     exp_a = np.exp(a - c)
     sum_exp_a = np.sum(exp_a)
     return exp_a / sum_exp_a
+
+
+def mean_squared_error(y, t):
+    # 二乗和誤差
+    return 0.5 * np.sum((y - t) ** 2)
+
+
+def cross_entropy_error(y, t):
+    delta = 1e-7
+    return - np.sum(t * np.log(y + delta))
 
 
 if __name__ == "__main__":
