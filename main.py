@@ -18,7 +18,7 @@ def calc_time(func_name):
     start = datetime.datetime.now()
     globals()[func_name]()
     end = datetime.datetime.now()
-    print(f"Time: {end-start}")
+    print(f"Function: {func_name}, Time: {end - start}")
 
 
 def exec_parallel():
