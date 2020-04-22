@@ -4,7 +4,7 @@ import numpy as np
 
 
 class TestSimpleNet(unittest.TestCase):
-    def test_a(self):
+    def test_assert_true(self):
         net = SimpleNet()
         print(net.w)
 
@@ -18,3 +18,9 @@ class TestSimpleNet(unittest.TestCase):
 
         loss = net.loss(x, t)
         print(loss)
+
+        self.assertTrue(True)
+
+
+if __name__ == "__main__":
+    pass
