@@ -10,14 +10,7 @@ from PIL import Image
 
 
 def main():
-    sys.path.append(os.pardir)
-    from dataset.mnist import load_mnist
-    # (訓練画像, 訓練ラベル), (テスト画像, テストラベル)
-    (x_train, t_train), (x_test, t_test) = load_mnist(
-        normalize=True, one_hot_label=True)
-    # embed()
-
-    return x_test, t_test
+    calc_time_endpoint()
 
 
 def calc_time_endpoint():
@@ -204,7 +197,7 @@ def numerical_grad(f, x):
     return grad
 
 
-def gradient_descent(f, init_x, lr=0.01, step_num=100):
+def gradient_descent(f, init_x, lr=0.01, step_num=10000):
     # lr = Learning Rate
     x = init_x
 
