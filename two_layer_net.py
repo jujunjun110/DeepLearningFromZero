@@ -1,4 +1,4 @@
-from util import *
+from util import cross_entropy_error, softmax, numerical_gradient, sigmoid
 import numpy as np
 
 
