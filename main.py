@@ -210,6 +210,15 @@ class Convolution:
         self.stride = stride
         self.pad = pad
 
+        # 中間データ（backward時に使用）
+        self.x = None
+        self.col = None
+        self.col_W = None
+
+        # 重み・バイアスパラメータの勾配
+        self.dW = None
+        self.db = None
+
     def forward(self, x):
         FN, C, FH, FW = self.W.shape
         N, C, H, W = x.shape
@@ -224,6 +233,19 @@ class Convolution:
         out = out.reshape(N, out_h, out_w, -1).transpose(0, 3, 1, 2)
 
         return out
+
+    def backward(self, dout):
+        FN, C, FH, FW = self.W.shape
+        dout = dout.transpose(0, 2, 3, 1).reshape(-1, FN)
+
+        self.db = np.sum(dout, axis=0)
+        self.dW = np.dot(self.col.T, dout)
+        self.dW = self.dW.transpose(1, 0).reshape(FN, C, FH, FW)
+
+        dcol = np.dot(dout, self.col_W.T)
+        dx = col2im(dcol, self.x.shape, FH, FW, self.stride, self.pad)
+
+        return dx
 
 
 if __name__ == "__main__":
